@@ -6,16 +6,23 @@ class AdminController {
         $this->userModel = $userModel;
     }
 
-    // Tableau de bord de l'administrateur
-    public function dashboard() {
-        $users = $this->userModel->getAllUsers();
-        require_once 'views/admin/dashboard.php';
+    public function dashbord() {
+        
+        
+        // if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
+        //     header('Location: index.php?action=login');
+        //     exit();
+        // }
+        global $pdo;
+        $usermodel = new Users($pdo);
+        $user = $usermodel->getAllUsers();
+        require __DIR__.'/../views/dashbord.php';
     }
-
+    
     // Supprimer un utilisateur
     public function deleteUser($id) {
-        $this->userModel->deleteUser($id);
-        header('Location: /admin/dashboard');
+        $this->users->deleteUser($id);
+        header('Location: /dashbord');
         exit();
     }
 }

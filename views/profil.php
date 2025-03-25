@@ -1,15 +1,19 @@
 <?php
-
- session_start();
-
-// // // Vérifier si l'utilisateur est connecté
-// if (!isset($_SESSION['username'])&&!isset($_SESSION['email'])) {
-//     // echo "Utilisateur non connecté.";
+require '../models/users.php';
+require '../config.php';
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+// if (!isset($user)) {
+//     die("Données utilisateur non disponibles");
+// }
+// if (!isset($_SESSION['user_id'])) {
+//     header('Location: index.php?action=login');
 //     exit();
-//  }
-
-// Afficher les informations de l'utilisateur
- ?>
+// }
+$utilisateur = new Users($pdo);
+$user =$utilisateur->getUserById($_SESSION['user_id']);
+?>
 
 
 <!DOCTYPE html>

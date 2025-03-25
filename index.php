@@ -1,13 +1,13 @@
 <?php
 
 require_once 'config.php'; 
-require_once 'controllers/Authcontroller.php'; 
-require_once 'controllers/usercontroller.php'; 
-
+require_once 'controllers/AuthController.php'; 
+require_once 'controllers/UserController.php'; 
+require_once 'controllers/AdminController.php';
 
 $authController = new AuthController($pdo);
 $userController = new UserController($pdo);
-
+$adminController = new AdminController($pdo);
 // Récupération de l'action à partir de la requête GET, avec 'login' comme valeur par défaut
 $action = $_GET['action'] ?? 'login';
 
@@ -19,12 +19,14 @@ switch ($action) {
     case 'register':
         $authController->register();
         break;
-    case 'dashboard':
-        $userController->dashboard();
+    case 'dashbord':
+        $adminController->dashbord();
         break;
     case 'profile':
-        $userController->profile();
+        $userController->profil();
         break;
+    case 'deleteUser':
+        $userController->deleteUser();
     default:
         include 'views/login.php'; // Afficher la vue de connexion par défaut
         break;

@@ -53,33 +53,28 @@ class UserController {
     public function listUsers() {
         return $this->users;
     }
+
+    public function profil() {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        if (!isset($_SESSION['user_id'])) {
+            header('Location: index.php?action=login');
+            exit();
+        }
+
+        $user = $this->userModel->getUserById($_SESSION['user_id']);
+        
+        if (!$user) {
+            die("Utilisateur non trouvé");
+        }
+
+        require_once __DIR__ . '/../views/profil.php';
+    }
 }
-// public function profile() {
-//     if (!isset($_SESSION['user_id'])) {
-//         header('Location: index.php?action=login');
-//         exit;
-//     }
 
-//     $user = $this->userModel->getUserById($_SESSION['user_id']);
-//     include 'views/profil.php';
-// }
 
-// public function updateProfile() {
-//     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-//         $username = $_POST['username'];
-//         $email = $_POST['email'];
-//         $this->userModel->updateUser($_SESSION['user_id'], $username, $email);
-//         header('Location: index.php?action=profil');
-//         exit;
-//     }
-//     $this->profile();
-// }
-
-// public function logout() {
-//     session_destroy();
-//     header('Location: index.php?action=login');
-//     exit;
-// }
 
 
 ?>

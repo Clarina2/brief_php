@@ -1,3 +1,8 @@
+<?php 
+require_once "config.php";
+require_once "controllers/AdminController.php";
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -28,36 +33,29 @@
         <table class="min-w-full bg-white border border-gray-300 rounded-lg shadow-md">
             <thead>
                 <tr class="bg-gray-200 text-gray-600">
+                   <th class="py-2 px-4 border">id</th>
                     <th class="py-2 px-4 border">Nom</th>
                     <th class="py-2 px-4 border">Email</th>
-                    <th class="py-2 px-4 border">Rôle</th>
+                    
                     <th class="py-2 px-4 border">Statut</th>
                     <th class="py-2 px-4 border">Actions</th>
                 </tr>
             </thead>
             <tbody>
-                <tr class="hover:bg-gray-100">
-                    <td class="py-2 px-4 border">Jean Dupont</td>
-                    <td class="py-2 px-4 border">jean.dupont@example.com</td>
-                    <td class="py-2 px-4 border">Administrateur</td>
-                    <td class="py-2 px-4 border">Actif</td>
-                    <td class="py-2 px-4 border">
-                        <button class="bg-green-500 text-white px-2 py-1 rounded hover:bg-green-600">Modifier</button>
-                        <button class="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600">Supprimer</button>
-                        <button class="bg-yellow-500 text-white px-2 py-1 rounded hover:bg-yellow-600">Désactiver</button>
-                    </td>
-                </tr>
-                <tr class="hover:bg-gray-100">
-                    <td class="py-2 px-4 border">Marie Curie</td>
-                    <td class="py-2 px-4 border">marie.curie@example.com</td>
-                    <td class="py-2 px-4 border">Utilisateur</td>
-                    <td class="py-2 px-4 border">Inactif</td>
-                    <td class="py-2 px-4 border">
-                        <button class="bg-green-500 text-white px-2 py-1 rounded hover:bg-green-600">Modifier</button>
-                        <button class="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600">Supprimer</button>
-                        <button class="bg-yellow-500 text-white px-2 py-1 rounded hover:bg-yellow-600">Activer</button>
-                    </td>
-                </tr>
+            <?php foreach ($user as $users) : ?>
+                    <tr>
+                        <td class="px-6 py-4"><?= htmlspecialchars($users['id']); ?></td>
+                        <td class="px-6 py-4"><?= htmlspecialchars($users['username']); ?></td>
+                        <td class="px-6 py-4"><?= htmlspecialchars($users['email']); ?></td>
+                        <td class="px-6 py-4"><?= htmlspecialchars($users['status']); ?></td>
+                        <td class="px-6 py-4">
+                            <form method="POST" action="index.php?action=deleteUser" class="inline">
+                                <input type="hidden" name="user_id" value="<?= htmlspecialchars($users['id']); ?>">
+                                <button type="submit" class="text-red-500 hover:text-red-700">Supprimer</button>
+                            </form>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
                 <!-- Ajoutez d'autres utilisateurs ici -->
             </tbody>
         </table>
@@ -81,14 +79,14 @@
             </thead>
             <tbody>
                 <tr class="hover:bg-gray-100">
-                    <td class="py-2 px-4 border">Jean Dupont</td>
-                    <td class="py-2 px-4 border">2025-03-21 08:00</td>
-                    <td class="py-2 px-4 border">Réussi</td>
+                    <td class="py-2 px-4 border"></td>
+                    <td class="py-2 px-4 border"></td>
+                    <td class="py-2 px-4 border"></td>
                 </tr>
                 <tr class="hover:bg-gray-100">
-                    <td class="py-2 px-4 border">Marie Curie</td>
-                    <td class="py-2 px-4 border">2025-03-21 09:30</td>
-                    <td class="py-2 px-4 border">Échoué</td>
+                    <td class="py-2 px-4 border"></td>
+                    <td class="py-2 px-4 border"></td>
+                    <td class="py-2 px-4 border"></td>
                 </tr>
                 <!-- Ajoutez d'autres logs ici -->
             </tbody>
